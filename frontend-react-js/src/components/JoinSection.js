@@ -5,7 +5,7 @@ export default function JoinSection(props) {
   return (
     <div className="join">
       <div className='join-title'>
-        Join The Party!
+        Join The Party ! Try It !
       </div>
       <div className='join-content'>
         <p>

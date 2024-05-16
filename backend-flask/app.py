@@ -15,15 +15,11 @@ from services.show_activity import *
 
 app = Flask(__name__)
 
-frontend="*"
-backend="*"
+frontend="http://127.0.0.1:3000"
+backend="http://127.0.0.1:4567"
 origins = [frontend, backend]
-cors = CORS(
+CORS(
   app, 
-  resources={r"/api/*": {"origins": origins}},
-  expose_headers="location,link",
-  allow_headers="content-type,if-modified-since",
-  methods="OPTIONS,GET,HEAD,POST"
 )
 
 @app.route("/api/message_groups", methods=['GET'])
