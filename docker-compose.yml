@@ -1,22 +1,24 @@
-version: '3.8'
+version: "3.8"
 services:
-  backend-flask : 
+  backend-flask:
     build: ./backend-flask
-    ports : 
+    ports:
       - "8000:8000"
 
-    volumes :
+    volumes:
       - ./backend-flask:/backend-flask
 
-  frontend-react-js :
+  frontend-react-js:
     build: ./frontend-react-js
-    ports :
+    ports:
       - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
-    volumes :
+    volumes:
       - ./frontend-react-js:/frontend-react-js
 
-networks :
+networks:
   internal-networks:
     driver: bridge
-    name : appNetwork
+    name: appNetwork
