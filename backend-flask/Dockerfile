@@ -10,6 +10,6 @@ COPY . .
 
 ENV FLASK_ENV=development
 
-EXPOSE 8000
+EXPOSE 8001
 
-CMD [ "python",  "-m", "flask", "run", "--host=0.0.0.0", "--port=8000" ]
+CMD [ "python",  "-m", "flask", "run", "--host=0.0.0.0", "--port=8001" ]
