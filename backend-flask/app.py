@@ -14,7 +14,26 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications_activities import *
 
+# HoneyComb
+
+from opentelemetry import trace
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+# Initialize tracing and an exporter that can send data to Honeycomb
+provider = TracerProvider()
+processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
+
+
 app = Flask(__name__)
+FlaskInstrumentor().instrument_app(app)
+RequestsInstrumentor().instrument()
 
 frontend="http://127.0.0.1:3000"
 backend="http://127.0.0.1:4567"
@@ -22,6 +41,9 @@ origins = [frontend, backend]
 CORS(
   app, 
 )
+
+
+
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
